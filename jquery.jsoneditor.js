@@ -107,8 +107,9 @@
             item.append(property).append(value);
             root.append(item);
             
-            property.val(key);
-            value.val(JSON.stringify(json[key]));
+            property.val(key).attr('title', key);
+            var val = JSON.stringify(json[key]);
+            value.val(val).attr('title', val);
 
             listen(opt, json, property, value, key);
             
@@ -122,7 +123,8 @@
         $(el).parentsUntil(opt.target).each(function() {
             var path = $(this).data('path');
             path = (path ? path + '.' : path) + $(this).children('.property').val();
-            $(this).children('.value').val(JSON.stringify(def(opt.original, path, '')));
+            var val = JSON.stringify(def(opt.original, path, ''));
+            $(this).children('.value').val(val).attr('title', val);
         });
     }
     
@@ -131,6 +133,8 @@
         property.change(function() {
             var path = $(this).parent().data('path'),
                 val = JSON.parse($(this).next().val());
+
+            $(this).attr('title', $(this).val());
 
             feed(opt.original, (path ? path + '.' : '') + key);
             feed(opt.original, (path ? path + '.' : '') + $(this).val(), val);
