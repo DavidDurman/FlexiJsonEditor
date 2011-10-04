@@ -40,6 +40,7 @@
     }
 
     function isObject(o) { return Object.prototype.toString.call(o) == '[object Object]'; }
+    function isArray(o) { return Object.prototype.toString.call(o) == '[object Array]'; }
 
     // Feeds object `o` with `value` at `path`. If value argument is omitted,
     // object at `path` will be deleted from `o`.
@@ -100,7 +101,9 @@
                 property =   $('<input>', { 'class': 'property' }),
                 value    =   $('<input>', { 'class': 'value'    });
 
-            isObject(json[key]) && addExpander(item);
+            if (isObject(json[key]) || isArray(json[key])) {
+                addExpander(item);
+            }
             item.append(property).append(value);
             root.append(item);
             
@@ -109,7 +112,7 @@
 
             listen(opt, json, property, value, key);
             
-            if (isObject(json[key])) {
+            if (isObject(json[key]) || isArray(json[key])) {
                 construct(opt, json[key], item, (path ? path + '.' : '') + key);
             }
         }
@@ -144,7 +147,7 @@
                 path = item.data('path');
 
             feed(opt.original, (path ? path + '.' : '') + key, val);
-            if (isObject(val)) {
+            if (isObject(val) || isArray(val)) {
                 construct(opt, val, item, (path ? path + '.' : '') + key);
                 addExpander(item);
             }
