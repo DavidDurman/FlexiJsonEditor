@@ -12,26 +12,33 @@
 
 // Example:
 
-//     var myjson = { any: { json: { value: 1 } } }; 
-//     $('#mydiv').jsonEditor(myjson, { change: function() { /* called on every change */ } });
+//     var myjson = { any: { json: { value: 1 } } };
+//     var opt = { change: function() { /* called on every change */ } };
+//     /* opt.propertyElement = '<textarea>'; */ // element of the property field, <input> is default
+//     /* opt.valueElement = '<textarea>'; */  // element of the value field, <input> is default
+//     $('#mydiv').jsonEditor(myjson, opt);
 
 (function( $ ) {
 
     $.fn.jsonEditor = function(json, options) {
+        options = options || {};
+
         var K = function() {},
-            onchange = options ? (options.change || K) : K;
+            onchange = options.change || K;
 
         return this.each(function() {
-            JSONEditor($(this), json, onchange);
+            JSONEditor($(this), json, onchange, options.propertyElement, options.valueElement);
         });
         
     };
     
-    function JSONEditor(target, json, onchange) {
+    function JSONEditor(target, json, onchange, propertyElement, valueElement) {
         var opt = {
             target: target,
             onchange: onchange,
-            original: json
+            original: json,
+            propertyElement: propertyElement,
+            valueElement: valueElement
         };
         construct(opt, json, opt.target);
         $('.property, .value', opt.target).live('blur focus', function() {
@@ -96,10 +103,10 @@
         
         for (var key in json) {
             if (!json.hasOwnProperty(key)) continue;
-            
+
             var item     = $('<div>',   { 'class': 'item', 'data-path': path }),
-                property =   $('<input>', { 'class': 'property' }),
-                value    =   $('<input>', { 'class': 'value'    });
+                property =   $(opt.propertyElement || '<input>', { 'class': 'property' }),
+                value    =   $(opt.valueElement || '<input>', { 'class': 'value'    });
 
             if (isObject(json[key]) || isArray(json[key])) {
                 addExpander(item);
