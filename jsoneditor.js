@@ -12,9 +12,18 @@ var json = {
 };
 
 function printJSON() {
-    $('#json').html(JSON.stringify(json));
+    $('#json').val(JSON.stringify(json));
 
 }
+
+$('#rebuild').click(function() {
+    try {
+        json = JSON.parse($('#json').val());
+        $('#editor').jsonEditor(json, { change: printJSON });
+    } catch (e) {
+        alert('Error in parsing json. ' + e);
+    }
+});
 
 
 $(document).ready(function() {

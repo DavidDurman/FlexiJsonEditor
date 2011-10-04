@@ -7,7 +7,9 @@
 
     <style>
         #json {
-          margin: 50px;
+          margin: 10px;
+          width: 70%;
+          min-height: 70px;
         }
         h1 {
           font-family: Arial;
@@ -20,9 +22,11 @@
 
 <body>
     <h1>JSON Editor</h1>
+    <a href="http://www.daviddurman.com">Blog post & Usage</a>
 
-    <div id="editor" class="editor"></div>
-    <pre id="json"></pre>
+    <div id="editor" class="json-editor"></div>
+    <textarea id="json"></textarea><br/>
+    <button id="rebuild">Rebuild</button>
 
     <script src="json2.js"></script>
     <script src="jquery.min.js"></script>
