@@ -88,6 +88,22 @@
         }
         return o;
     }
+
+    function error(reason) { if (window.console) { console.error(reason); } }
+    
+    function parse(str) {
+        var res;
+        try { res = JSON.parse(str); }
+        catch (e) { res = null; error('JSON parse failed.'); }
+        return res;
+    }
+
+    function stringify(obj) {
+        var res;
+        try { res = JSON.stringify(obj); }
+        catch (e) { res = 'null'; error('JSON stringify failed.'); }
+        return res;
+    }
     
     function addExpander(item) {
         if (item.children('.expander').length == 0) {
@@ -120,7 +136,7 @@
             root.append(item);
             
             property.val(key).attr('title', key);
-            var val = JSON.stringify(json[key]);
+            var val = stringify(json[key]);
             value.val(val).attr('title', val);
 
             assignType(item, json[key]);
@@ -137,7 +153,7 @@
         $(el).parentsUntil(opt.target).each(function() {
             var path = $(this).data('path');
             path = (path ? path + '.' : path) + $(this).children('.property').val();
-            var val = JSON.stringify(def(opt.original, path, ''));
+            var val = stringify(def(opt.original, path, null));
             $(this).children('.value').val(val).attr('title', val);
         });
     }
@@ -146,7 +162,7 @@
 
         property.change(function() {
             var path = $(this).parent().data('path'),
-                val = JSON.parse($(this).next().val()),
+                val = parse($(this).next().val()),
                 newKey = $(this).val();
 
             $(this).attr('title', newKey);
@@ -163,7 +179,7 @@
         
         value.change(function() {
             var key = $(this).prev().val(),
-                val = JSON.parse($(this).val()),
+                val = parse($(this).val() || 'null'),
                 item = $(this).parent(),
                 path = item.data('path');
 
@@ -171,6 +187,8 @@
             if (isObject(val) || isArray(val)) {
                 construct(opt, val, item, (path ? path + '.' : '') + key);
                 addExpander(item);
+            } else {
+                item.find('.expander, .item').remove();
             }
 
             assignType(item, val);
