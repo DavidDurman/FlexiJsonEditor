@@ -99,7 +99,7 @@
             item.prepend(expander);
         }
     }
-
+    
     function construct(opt, json, root, path) {
         path = path || '';
 
@@ -115,6 +115,7 @@
             if (isObject(json[key]) || isArray(json[key])) {
                 addExpander(item);
             }
+            
             item.append(property).append(value);
             root.append(item);
             
@@ -145,14 +146,17 @@
 
         property.change(function() {
             var path = $(this).parent().data('path'),
-                val = JSON.parse($(this).next().val());
+                val = JSON.parse($(this).next().val()),
+                newKey = $(this).val();
 
-            $(this).attr('title', $(this).val());
+            $(this).attr('title', newKey);
 
             feed(opt.original, (path ? path + '.' : '') + key);
-            feed(opt.original, (path ? path + '.' : '') + $(this).val(), val);
+            if (newKey) feed(opt.original, (path ? path + '.' : '') + newKey, val);
 
             updateParents(this, opt);
+
+            if (!newKey) $(this).parent().remove();
             
             opt.onchange();
         });
