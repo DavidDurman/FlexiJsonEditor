@@ -23,9 +23,9 @@
 }
 .json-editor .property { 
   background-color: #B1C639;
-  color: black;
+  color: white;
   font-weight: bold;
-  text-shadow: 1px 1px 1px white;
+  text-shadow: 1px 1px 1px black;
 }
 
 .json-editor .editing { 
@@ -61,3 +61,10 @@
 .json-editor .item.expanded > .expander { 
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sKBBAdNcQGwvUAAAGjSURBVDjLzZNNS1tREIafOfdGjcaA65hFKQUpWIWCLgwI3fQnFMGN0Z/QiqsWKVgKLrpx78pNoZv+BUU0WNRC/dgoTaFCMWnUNoZ7b6aLm5ycS+quix44cJiPd953Zg78N2fv9BwAVRVVNXdccWMBpP04PPvmnxwdfd7Z2hyxzpZXtVNocqpwkssPjx6XtoNisdgBOK/8WnxamHhrjEEAEUkwVFUUaDYjNj58XH88cn8OwHSqSbpe/22T3XTX1rhtUKtWLUtDIlAQEYwIURRZexgGGBEX2IryXb3S8uXyeQYzGYc/XN/cUC6XQTq9SQIQI4RhxPMXSzyZLtjmGYHS/iGzM89iQX8DUBQUUr7P6+VXrPb1MpjNAnBVq1G/bdCT6iEIAkeACxDno0Dl8pIwDDGeZwONSJynybH6XaNSpQl4nmcLiUCz5YttKl1TUNWrTDabAEmwU0VR+gcGSKfTla5NXH2/wYOh3MGn0u4jZzcss3afxsbGg+r3r4WF+YXdBMDW/hemxh/yZvnlPc/zU7ax7Qm1tPz8cVFeebdW/2ef8A+6rb2Fr7Cr4wAAAABJRU5ErkJggg==") no-repeat center center;
 }
+
+.json-editor .item.string > .property { background-color: #009408; }
+.json-editor .item.array  > .property { background-color: #2D5B89; }
+.json-editor .item.object > .property { background-color: #E17000; }
+.json-editor .item.number > .property { background-color: #497B8D; }
+/*.json-editor .item.boolean { background-color:  }*/
+/*.json-editor .item.null { background-color:  }*/

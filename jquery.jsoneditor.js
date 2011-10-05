@@ -48,6 +48,10 @@
 
     function isObject(o) { return Object.prototype.toString.call(o) == '[object Object]'; }
     function isArray(o) { return Object.prototype.toString.call(o) == '[object Array]'; }
+    function isBoolean(o) { return Object.prototype.toString.call(o) == '[object Boolean]'; }
+    function isNumber(o) { return Object.prototype.toString.call(o) == '[object Number]'; }
+    function isString(o) { return Object.prototype.toString.call(o) == '[object String]'; }
+    var types = 'object array boolean number string null';
 
     // Feeds object `o` with `value` at `path`. If value argument is omitted,
     // object at `path` will be deleted from `o`.
@@ -118,6 +122,8 @@
             var val = JSON.stringify(json[key]);
             value.val(val).attr('title', val);
 
+            assignType(item, json[key]);
+
             listen(opt, json, property, value, key);
             
             if (isObject(json[key]) || isArray(json[key])) {
@@ -163,10 +169,25 @@
                 addExpander(item);
             }
 
+            assignType(item, val);
+
             updateParents(this, opt);
             
             opt.onchange();
         });    
+    }
+
+    function assignType(item, val) {
+        var className = 'null';
+        
+        if (isObject(val)) className = 'object';
+        else if (isArray(val)) className = 'array';
+        else if (isBoolean(val)) className = 'boolean';
+        else if (isString(val)) className = 'string';
+        else if (isNumber(val)) className = 'number';
+
+        item.removeClass(types);
+        item.addClass(className);
     }
 
 })( jQuery );
