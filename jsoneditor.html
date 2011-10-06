@@ -7,25 +7,29 @@
 
     <style>
         #json {
-          margin: 10px;
-          width: 70%;
+          margin: 10px 10px 10px 32px;
+          width: 50%;
           min-height: 70px;
         }
         h1 {
           font-family: Arial;
-          color: #5A5C58;
+          color: #2D5B89;
           text-align: center;
-          text-shadow: 1px 1px 1px #AAD1DD;
+          text-shadow: 1px 1px 1px black;
         }
 
         #legend {
           display: inline;
-          margin-left: 100px;
+          margin-left: 30px;
         }
         #legend h2 {
            display: inline;
            font-size: 18px;
            margin-right: 20px;
+        }
+        #legend a {
+          color: white;
+          margin-right: 20px;
         }
         #legend span {
           padding: 2px 4px;
@@ -44,15 +48,20 @@
         #legend .boolean { background-color: #B1C639; }
         #legend .null    { background-color: #B1C639; }
 
+        #expander {
+          cursor: pointer;
+          margin-right: 20px;
+        }
+
     </style>
 </head>
 
 <body>
     <h1>JSON Editor</h1>
-    <a href="http://www.daviddurman.com">Blog post & Usage</a>
-
+    
     <div id="legend">
-        <h2>Legend</h2>
+        <span><a href="http://www.daviddurman.com">Blog post & Usage</a></span>
+        <span id="expander">Expand all</span>
         <span class="array">array</span>
         <span class="object">object</span>
         <span class="string">string</span>
@@ -63,7 +72,6 @@
     </div>
     <div id="editor" class="json-editor"></div>
     <textarea id="json"></textarea><br/>
-    <button id="rebuild">Rebuild</button>
 
     <script src="json2.js"></script>
     <script src="jquery.min.js"></script>

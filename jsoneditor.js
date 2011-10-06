@@ -16,18 +16,25 @@ function printJSON() {
 
 }
 
-$('#rebuild').click(function() {
-    try {
-        json = JSON.parse($('#json').val());
-        $('#editor').jsonEditor(json, { change: printJSON });
-    } catch (e) {
-        alert('Error in parsing json. ' + e);
-    }
-});
-
-
 $(document).ready(function() {
+
+    $('#json').change(function() {
+        try {
+            json = JSON.parse($('#json').val());
+            $('#editor').jsonEditor(json, { change: printJSON });
+        } catch (e) {
+            alert('Error in parsing json. ' + e);
+        }
+    });
+
+    $('#expander').click(function() {
+        var editor = $('#editor');
+        editor.toggleClass('expanded');
+        $(this).text(editor.hasClass('expanded') ? 'Collapse' : 'Expand all');
+    });
+    
     printJSON();
     $('#editor').jsonEditor(json, { change: printJSON });
 });
+
 
