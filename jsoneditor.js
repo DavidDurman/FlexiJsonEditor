@@ -19,12 +19,16 @@ function printJSON() {
 $(document).ready(function() {
 
     $('#json').change(function() {
-        try {
-            json = JSON.parse($('#json').val());
-            $('#editor').jsonEditor(json, { change: printJSON });
-        } catch (e) {
-            alert('Error in parsing json. ' + e);
+        var val = $('#json').val();
+
+        if (val) {
+            try { json = JSON.parse(val); }
+            catch (e) { alert('Error in parsing json. ' + e); }
+        } else {
+            json = {};
         }
+        
+        $('#editor').jsonEditor(json, { change: printJSON });
     });
 
     $('#expander').click(function() {
