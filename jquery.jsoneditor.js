@@ -187,7 +187,7 @@
                 path = item.data('path');
 
             feed(opt.original, (path ? path + '.' : '') + key, val);
-            if (isObject(val) || isArray(val)) {
+            if ((isObject(val) || isArray(val)) && !$.isEmptyObject(val)) {
                 construct(opt, val, item, (path ? path + '.' : '') + key);
                 addExpander(item);
             } else {
