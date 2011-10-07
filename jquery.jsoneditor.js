@@ -141,7 +141,8 @@
 
             assignType(item, json[key]);
 
-            listen(opt, json, property, value, key);
+            property.change(propertyChanged(opt));
+            value.change(valueChanged(opt));
             
             if (isObject(json[key]) || isArray(json[key])) {
                 construct(opt, json[key], item, (path ? path + '.' : '') + key);
@@ -157,17 +158,17 @@
             $(this).children('.value').val(val).attr('title', val);
         });
     }
-    
-    function listen(opt, json, property, value, key) {
 
-        property.change(function() {
+    function propertyChanged(opt) {
+        return function() {
             var path = $(this).parent().data('path'),
                 val = parse($(this).next().val()),
-                newKey = $(this).val();
+                newKey = $(this).val(),
+                oldKey = $(this).attr('title');
 
             $(this).attr('title', newKey);
 
-            feed(opt.original, (path ? path + '.' : '') + key);
+            feed(opt.original, (path ? path + '.' : '') + oldKey);
             if (newKey) feed(opt.original, (path ? path + '.' : '') + newKey, val);
 
             updateParents(this, opt);
@@ -175,9 +176,11 @@
             if (!newKey) $(this).parent().remove();
             
             opt.onchange();
-        });
-        
-        value.change(function() {
+        };
+    }
+
+    function valueChanged(opt) {
+        return function() {
             var key = $(this).prev().val(),
                 val = parse($(this).val() || 'null'),
                 item = $(this).parent(),
@@ -196,9 +199,9 @@
             updateParents(this, opt);
             
             opt.onchange();
-        });    
+        };
     }
-
+    
     function assignType(item, val) {
         var className = 'null';
         
