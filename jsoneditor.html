@@ -57,12 +57,47 @@
           font-size: 13px;
         }
 
+        #rest {
+          margin: 20px 0 20px 30px;
+        }
+        #rest label {
+          font-weight: bold;
+        }
+        #rest-callback {
+          width: 70px;
+        }
+        #rest-url {
+          width: 700px;
+        }
+
+        .addthis_toolbox {
+          position: relative;
+          top: -50px;
+          margin-left: 30px;
+        }
+
+        #disqus_thread {
+          margin-top: 50px;
+        }
+
     </style>
 </head>
 
 <body>
     <h1>JSON Editor</h1>
     
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style ">
+        <a class="addthis_button_preferred_1"></a>
+        <a class="addthis_button_preferred_2"></a>
+        <a class="addthis_button_preferred_3"></a>
+        <a class="addthis_button_preferred_4"></a>
+        <a class="addthis_button_compact"></a>
+        <a class="addthis_counter addthis_bubble_style"></a>
+    </div>
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4eda7a214991ecb3"></script>
+    <!-- AddThis Button END -->
+
     <div id="legend">
         <span><a href="http://www.daviddurman.com">Blog post & Usage</a></span>
         <span id="expander">Expand all</span>
@@ -74,10 +109,34 @@
         <span class="null">null</span>
         <span>Remove item by deleting a property name.</span>
     </div>
+
+    <div id="rest">
+        <label>JSONP: </label><br/>
+        Callback: <input type="text" id="rest-callback" value="_callback" />
+        URL: <input type="text" value="" id="rest-url" />
+        <button id="btn-rest-url">display JSON</button>
+    </div>
     <div id="editor" class="json-editor"></div>
+
+    <label>Or paste JSON directly here:</label><br/>
     <textarea id="json"></textarea><br/>
 
-    <p id="footer">Copyright &copy; 2011 David Durman</p>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'flexijsoneditor'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    <p id="footer">Copyright &copy; 2011-2012 David Durman (client IO, <a href="http://www.client.io">http://www.client.io</a>, org@client.io)</p>
 
     <script src="json2.js"></script>
     <script src="jquery.min.js"></script>

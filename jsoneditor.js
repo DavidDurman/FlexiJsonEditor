@@ -18,6 +18,21 @@ function printJSON() {
 
 $(document).ready(function() {
 
+    $('#rest > button').click(function() {
+        var url = $('#rest-url').val();
+        $.ajax({
+            url: url,
+            dataType: 'jsonp',
+            jsonp: $('#rest-callback').val(),
+            success: function(data) {
+                $('#editor').jsonEditor(data, { change: printJSON });
+            },
+            error: function() {
+                alert('Something went wrong, double-check the URL and callback parameter.');
+            }
+        });
+    });
+
     $('#json').change(function() {
         var val = $('#json').val();
 
