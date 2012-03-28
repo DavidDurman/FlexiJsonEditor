@@ -6,6 +6,9 @@
     <title>Flexi JSON Editor</title>
 
     <style>
+        body {
+          padding: 0 70px;
+        }
         #json {
           margin: 10px 10px 10px 32px;
           width: 50%;
@@ -13,9 +16,11 @@
         }
         h1 {
           font-family: Arial;
-          color: #2D5B89;
+          color: #EBBC6E;
           text-align: center;
           text-shadow: 1px 1px 1px black;
+          border-bottom: 1px solid gray;
+          padding-bottom: 30px;
         }
         h1 b {
           color: black;
@@ -76,15 +81,27 @@
         #rest-url {
           width: 700px;
         }
+        label[for="json"] {
+          margin-left: 30px;
+          display: block;
+        }
+        #json-note {
+          margin-left: 30px;
+          font-size: 12px;
+        }
 
         .addthis_toolbox {
           position: relative;
-          top: -50px;
+          top: -70px;
           margin-left: 30px;
         }
 
         #disqus_thread {
           margin-top: 50px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          border-top: 1px solid gray;
+          border-bottom: 1px solid gray;
         }
 
     </style>
@@ -140,7 +157,9 @@
     </div>
     <div id="editor" class="json-editor"></div>
 
-    <label>Or paste JSON directly here:</label><br/>
+    <label for="json">Or paste JSON directly here:</label>
+    <p id="json-note">Note that you can edit your JSON directly in the textarea below.
+        The JSON viewer will get updated when you leave the field.</p>
     <textarea id="json"></textarea><br/>
 
     <div id="disqus_thread"></div>

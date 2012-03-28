@@ -25,7 +25,9 @@ $(document).ready(function() {
             dataType: 'jsonp',
             jsonp: $('#rest-callback').val(),
             success: function(data) {
-                $('#editor').jsonEditor(data, { change: printJSON });
+                json = data;
+                $('#editor').jsonEditor(json, { change: printJSON });
+                printJSON();
             },
             error: function() {
                 alert('Something went wrong, double-check the URL and callback parameter.');
