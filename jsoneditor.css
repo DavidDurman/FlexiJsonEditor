@@ -66,5 +66,5 @@
 .json-editor .item.array  > .property { background-color: #2D5B89; }
 .json-editor .item.object > .property { background-color: #E17000; }
 .json-editor .item.number > .property { background-color: #497B8D; }
+.json-editor .item.null > .property { background-color: #FC000D; }
 /*.json-editor .item.boolean { background-color:  }*/
-/*.json-editor .item.null { background-color:  }*/
