@@ -1,7 +1,4 @@
-JSON editor jQuery plugin
+FlexiJsonEditor - JSON editor plugin for jQuery
 =========================
 
-[Live example](http://jsonmate.com)
-
-A JSON editor component for you web apps/pages.
-[Blog post](http://www.daviddurman.com)
+Check out a [live example](http://jsonmate.com).  Forked and updated for jQuery 1.9+.
