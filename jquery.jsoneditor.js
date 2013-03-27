@@ -22,7 +22,9 @@
 
     $.fn.jsonEditor = function(json, options) {
         options = options || {};
-
+        // Make sure functions or other non-JSON data types are stripped down.
+        json = parse(stringify(json));
+        
         var K = function() {},
             onchange = options.change || K;
 
@@ -118,7 +120,7 @@
     
     function construct(opt, json, root, path) {
         path = path || '';
-
+        
         root.children('.item').remove();
         
         for (var key in json) {
