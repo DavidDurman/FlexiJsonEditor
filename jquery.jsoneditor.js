@@ -177,7 +177,7 @@
 
             if (!newKey) $(this).parent().remove();
             
-            opt.onchange();
+            opt.onchange(parse(stringify(opt.original)));
         };
     }
 
@@ -200,7 +200,7 @@
 
             updateParents(this, opt);
             
-            opt.onchange();
+            opt.onchange(parse(stringify(opt.original)));
         };
     }
     
