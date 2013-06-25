@@ -16,6 +16,12 @@ function printJSON() {
 
 }
 
+function updateJSON(data) {
+    json = data;
+    printJSON();
+
+}
+
 $(document).ready(function() {
 
     $('#rest > button').click(function() {
@@ -26,7 +32,7 @@ $(document).ready(function() {
             jsonp: $('#rest-callback').val(),
             success: function(data) {
                 json = data;
-                $('#editor').jsonEditor(json, { change: printJSON });
+                $('#editor').jsonEditor(json, { change: updateJSON });
                 printJSON();
             },
             error: function() {
@@ -45,7 +51,7 @@ $(document).ready(function() {
             json = {};
         }
         
-        $('#editor').jsonEditor(json, { change: printJSON });
+        $('#editor').jsonEditor(json, { change: updateJSON });
     });
 
     $('#expander').click(function() {
@@ -55,7 +61,7 @@ $(document).ready(function() {
     });
     
     printJSON();
-    $('#editor').jsonEditor(json, { change: printJSON });
+    $('#editor').jsonEditor(json, { change: updateJSON });
 });
 
 
