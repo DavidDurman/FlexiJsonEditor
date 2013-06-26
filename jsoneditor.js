@@ -19,7 +19,10 @@ function printJSON() {
 function updateJSON(data) {
     json = data;
     printJSON();
+}
 
+function showPath(path) {
+    $('#path').text(path);
 }
 
 $(document).ready(function() {
@@ -32,7 +35,7 @@ $(document).ready(function() {
             jsonp: $('#rest-callback').val(),
             success: function(data) {
                 json = data;
-                $('#editor').jsonEditor(json, { change: updateJSON });
+                $('#editor').jsonEditor(json, { change: updateJSON, propertyclick: showPath });
                 printJSON();
             },
             error: function() {
@@ -51,7 +54,7 @@ $(document).ready(function() {
             json = {};
         }
         
-        $('#editor').jsonEditor(json, { change: updateJSON });
+        $('#editor').jsonEditor(json, { change: updateJSON, propertyclick: showPath });
     });
 
     $('#expander').click(function() {
@@ -61,7 +64,7 @@ $(document).ready(function() {
     });
     
     printJSON();
-    $('#editor').jsonEditor(json, { change: updateJSON });
+    $('#editor').jsonEditor(json, { change: updateJSON, propertyclick: showPath });
 });
 
 

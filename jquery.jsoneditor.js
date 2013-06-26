@@ -1,7 +1,7 @@
 // Simple yet flexible JSON editor plugin.
 // Turns any element into a stylable interactive JSON editor.
 
-// Copyright (c) 2011 David Durman
+// Copyright (c) 2013 David Durman
 
 // Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php).
 
@@ -25,19 +25,21 @@
         // Make sure functions or other non-JSON data types are stripped down.
         json = parse(stringify(json));
         
-        var K = function() {},
-            onchange = options.change || K;
+        var K = function() {};
+        var onchange = options.change || K;
+        var onpropertyclick = options.propertyclick || K;
 
         return this.each(function() {
-            JSONEditor($(this), json, onchange, options.propertyElement, options.valueElement);
+            JSONEditor($(this), json, onchange, onpropertyclick, options.propertyElement, options.valueElement);
         });
         
     };
     
-    function JSONEditor(target, json, onchange, propertyElement, valueElement) {
+    function JSONEditor(target, json, onchange, onpropertyclick, propertyElement, valueElement) {
         var opt = {
             target: target,
             onchange: onchange,
+            onpropertyclick: onpropertyclick,
             original: json,
             propertyElement: propertyElement,
             valueElement: valueElement
@@ -180,6 +182,7 @@
 
             property.change(propertyChanged(opt));
             value.change(valueChanged(opt));
+            property.click(propertyClicked(opt));
             
             if (isObject(json[key]) || isArray(json[key])) {
                 construct(opt, json[key], item, (path ? path + '.' : '') + key);
@@ -204,6 +207,17 @@
         });
     }
 
+    function propertyClicked(opt) {
+        return function() {
+            var path = $(this).parent().data('path');            
+            var key = $(this).attr('title');
+
+            var safePath = path ? path.split('.').concat([key]).join('\'][\'') : key;
+            
+            opt.onpropertyclick('[\'' + safePath + '\']');
+        };
+    }
+    
     function propertyChanged(opt) {
         return function() {
             var path = $(this).parent().data('path'),
