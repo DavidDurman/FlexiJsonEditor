@@ -7,8 +7,19 @@ A JSON editor component for you web apps/pages.
 [Live example](http://www.daviddurman.com/flexi-json-editor/jsoneditor.html)
 
 
+INSTALLATION
+============
+
+Include these lines into your HTML:
+
+        <link rel="stylesheet" href="jsoneditor.css"/>
+        <script src="jquery.min.js"></script>
+        <script src="jquery.jsoneditor.js"></script>
+
+
 USAGE
 =====
+
 
         var myjson = { any: { json: { value: 1 } } };
         var opt = { 
