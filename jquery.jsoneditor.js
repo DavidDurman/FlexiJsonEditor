@@ -117,6 +117,41 @@
             item.prepend(expander);
         }
     }
+
+    function addListAppender(item, handler) {
+        var appender = $('<div>', { 'class': 'item appender' }),
+            btn      = $('<button></button>', { 'class': 'property' });
+
+        btn.text('Add New Value');
+
+        appender.append(btn);
+        item.append(appender);
+
+        btn.click(handler);
+
+        return appender;
+    }
+
+    function addNewValue(json) {
+        if (isArray(json)) {
+            json.push(null);
+            return true;
+        }
+
+        if (isObject(json)) {
+            var i = 1, newName = "newKey";
+
+            while (json.hasOwnProperty(newName)) {
+                newName = "newKey" + i;
+                i++;
+            }
+
+            json[newName] = null;
+            return true;
+        }
+
+        return false;
+    }
     
     function construct(opt, json, root, path) {
         path = path || '';
@@ -149,6 +184,14 @@
             if (isObject(json[key]) || isArray(json[key])) {
                 construct(opt, json[key], item, (path ? path + '.' : '') + key);
             }
+        }
+
+        if (isObject(json) || isArray(json)) {
+            addListAppender(root, function () {
+                addNewValue(json);
+                construct(opt, json, root, path);
+                opt.onchange(parse(stringify(opt.original)));
+            })
         }
     }
 
