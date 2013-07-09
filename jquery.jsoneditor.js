@@ -45,7 +45,7 @@
             valueElement: valueElement
         };
         construct(opt, json, opt.target);
-        $('.property, .value', opt.target).live('blur focus', function() {
+        $(opt.target).on('blur focus', '.property, .value', function() {
             $(this).toggleClass('editing');
         });
     }
