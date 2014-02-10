@@ -29,3 +29,7 @@ USAGE
         /* opt.propertyElement = '<textarea>'; */ // element of the property field, <input> is default
         /* opt.valueElement = '<textarea>'; */  // element of the value field, <input> is default
         $('#mydiv').jsonEditor(myjson, opt);
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/DavidDurman/flexijsoneditor/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
