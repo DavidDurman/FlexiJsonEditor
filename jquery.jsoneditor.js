@@ -28,26 +28,32 @@
         var K = function() {};
         var onchange = options.change || K;
         var onpropertyclick = options.propertyclick || K;
-
+        var isEditable=false;
+        if(options.isEditable===true){
+            isEditable=true;
+        }
         return this.each(function() {
-            JSONEditor($(this), json, onchange, onpropertyclick, options.propertyElement, options.valueElement);
+            JSONEditor($(this), json, onchange, onpropertyclick, options.propertyElement, options.valueElement,isEditable);
         });
         
     };
     
-    function JSONEditor(target, json, onchange, onpropertyclick, propertyElement, valueElement) {
+    function JSONEditor(target, json, onchange, onpropertyclick, propertyElement, valueElement, isEditable) {
         var opt = {
             target: target,
             onchange: onchange,
             onpropertyclick: onpropertyclick,
             original: json,
             propertyElement: propertyElement,
-            valueElement: valueElement
+            valueElement: valueElement,
+            isEditable:isEditable
         };
         construct(opt, json, opt.target);
-        $(opt.target).on('blur focus', '.property, .value', function() {
-            $(this).toggleClass('editing');
-        });
+        if(isEditable){
+            $(opt.target).on('blur focus', '.property, .value', function() {
+                $(this).toggleClass('editing');
+            });
+        }
     }
 
     function isObject(o) { return Object.prototype.toString.call(o) == '[object Object]'; }
@@ -164,8 +170,8 @@
             if (!json.hasOwnProperty(key)) continue;
 
             var item     = $('<div>',   { 'class': 'item', 'data-path': path }),
-                property =   $(opt.propertyElement || '<input>', { 'class': 'property' }),
-                value    =   $(opt.valueElement || '<input>', { 'class': 'value'    });
+                property =   $(opt.propertyElement || '<input>', { 'class': 'property','disabled':!opt.isEditable }),
+                value    =   $(opt.valueElement || '<input>', { 'class': 'value','disabled':!opt.isEditable    });
 
             if (isObject(json[key]) || isArray(json[key])) {
                 addExpander(item);
@@ -190,11 +196,14 @@
         }
 
         if (isObject(json) || isArray(json)) {
-            addListAppender(root, function () {
-                addNewValue(json);
-                construct(opt, json, root, path);
-                opt.onchange(parse(stringify(opt.original)));
-            })
+            if(opt.isEditable){
+                addListAppender(root, function () {
+                    addNewValue(json);
+                    construct(opt, json, root, path);
+                    opt.onchange(parse(stringify(opt.original)));
+                });
+            }
+            
         }
     }
 

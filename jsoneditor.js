@@ -64,7 +64,20 @@ $(document).ready(function() {
     });
     
     printJSON();
-    $('#editor').jsonEditor(json, { change: updateJSON, propertyclick: showPath });
+    $('#editor').jsonEditor(json, { change: updateJSON, propertyclick: showPath,isEditable:true });
+    
+    //Turn on/off editing
+    $('#editToggle').click(function(){
+        if($(this).data('editable')){
+            $(this).data('editable',false);
+            $('#editor').jsonEditor(json,{change:updateJSON,propertyclick:showPath,isEditable:false});
+            $(this).prop('value','Turn inline edditing on');
+        }else{
+            $(this).data('editable',true);
+            $('#editor').jsonEditor(json,{change:updateJSON,propertyclick:showPath,isEditable:true});
+            $(this).prop('value','Turn inline edditing off');
+        }
+    });
 });
 
 
