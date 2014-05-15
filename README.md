@@ -25,6 +25,7 @@ USAGE
         var opt = { 
             change: function(data) { /* called on every change */ },
             propertyclick: function(path) { /* called when a property is clicked with the JS path to that property */ }
+            isEditable:true
         };
         /* opt.propertyElement = '<textarea>'; */ // element of the property field, <input> is default
         /* opt.valueElement = '<textarea>'; */  // element of the value field, <input> is default
