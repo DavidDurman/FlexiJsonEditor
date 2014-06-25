@@ -28,21 +28,23 @@
         var K = function() {};
         var onchange = options.change || K;
         var onpropertyclick = options.propertyclick || K;
+        var enableAddNewValue = options.enableAddNewValue != null ? options.enableAddNewValue : true;
 
         return this.each(function() {
-            JSONEditor($(this), json, onchange, onpropertyclick, options.propertyElement, options.valueElement);
+            JSONEditor($(this), json, onchange, onpropertyclick, options.propertyElement, options.valueElement, enableAddNewValue);
         });
         
     };
     
-    function JSONEditor(target, json, onchange, onpropertyclick, propertyElement, valueElement) {
+    function JSONEditor(target, json, onchange, onpropertyclick, propertyElement, valueElement, enableAddNewValue) {
         var opt = {
             target: target,
             onchange: onchange,
             onpropertyclick: onpropertyclick,
             original: json,
             propertyElement: propertyElement,
-            valueElement: valueElement
+            valueElement: valueElement,
+            enableAddNewValue: enableAddNewValue
         };
         construct(opt, json, opt.target);
         $(opt.target).on('blur focus', '.property, .value', function() {
@@ -189,7 +191,7 @@
             }
         }
 
-        if (isObject(json) || isArray(json)) {
+        if (opt.enableAddNewValue && (isObject(json) || isArray(json))) {
             addListAppender(root, function () {
                 addNewValue(json);
                 construct(opt, json, root, path);
