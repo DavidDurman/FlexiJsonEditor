@@ -71,8 +71,8 @@
             for (var len = parts.length; i < len - 1; i++) {
                 diver = diver[parts[i]];
             }
-            if (del) delete diver[parts[len - 1]];
-            else diver[parts[len - 1]] = value;
+            if (del){ var delIndex = Number(parts[len - 1]); diver.splice(delIndex,1);}
+            else { diver[parts[len - 1]] = value; }
         } else {
             if (del) delete o[path];
             else o[path] = value;
